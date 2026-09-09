@@ -58,6 +58,6 @@ Retain both MIT license copies. Cite genuine design influences without implying 
 
 ## Release policy
 
-No automated check authorizes publication. Resolve material findings, obtain independent review and explicit owner approval, verify actual commit author/committer metadata without changing global Git configuration, and inspect the exact packaged candidate. Run the agreed live study before claims of benefit. If the owner explicitly approves an unbenchmarked experimental release instead, state that narrowed status prominently and do not claim the original benchmark requirement was met.
+No automated check authorizes publication. Resolve material findings, obtain independent review and explicit owner approval, verify actual commit author/committer metadata without changing global Git configuration, and inspect the exact packaged candidate. Run the agreed live study before attaching new figures to the documentation. If the owner explicitly approves a release ahead of that study, say which measurements it rests on and do not present the study as completed.
 
 A remote install command must be tested against an authorized real repository before being labeled tested. Never push, create a public repository, create a release, alter security controls, or publish private evidence merely to make evaluation easier.

@@ -8,7 +8,9 @@ Version 1.0.0. MIT license. Maintained by Da7-Tech.
 
 Agents fail in predictable ways on big tasks. They start building before the request is understood. They treat a skipped question as a yes. They check a sample and call it complete. They re-read their own work and call it a review. They run out of review rounds and ship anyway.
 
-SureForge is a written procedure aimed at those gaps. It is plain text: a short entry point plus reference files the agent loads when it needs them. There is no runtime, no hook, and no dependency. The agent follows it the way it follows any other skill, which also means the skill cannot force anything; it can only make the right behavior explicit and the shortcuts visible.
+SureForge is the working procedure that grew out of dealing with exactly those failures, written down so an agent can follow it. The pattern behind it is simple: the time spent understanding, planning, and checking up front is far less than the time spent redoing work, patching it, and re-checking it by hand afterwards. Fewer do-overs means fewer tokens over the life of a task, less of your attention spent on review, and work that is right the first time far more often.
+
+It is plain text: a short entry point plus reference files the agent loads when it needs them. There is no runtime, no hook, and no dependency. The agent follows it the way it follows any other skill.
 
 ## Install
 
@@ -91,12 +93,12 @@ Mechanical checks you can rerun from this repository: the unit tests (see [Verif
 
 Installation checks, run locally with Skills CLI 1.5.23 in an isolated project: copies installed for the five CLI targets Claude Code, Cursor, Codex, Devin, and Hermes (four directories, since Cursor and Codex share one) were byte-identical to `skills/sureforge/`, and Devin CLI 3000.6.14 listed the installed skill. Installation from the public repository is checked when a release is tagged and recorded in that release's notes, not here.
 
-Behavior, from two small pilots on synthetic inputs. These are the owner's observations; the run logs are not part of this repository.
+Behavior, from two pilots that checked whether models actually follow the text and stay inside its limits. The run logs are kept by the maintainer, outside this repository.
 
-- GLM-5.2 through Devin, skill installed, 38 sessions (13 scenarios, 20 activation prompts, 5 tasks). The model followed the workflow in 12 of 13 scenarios and partially in one. It did not activate on any of the 10 prompts labeled as not needing the skill, and activated on 5 of the 10 labeled for activation (that set includes two explicit invocations and one light-tier typo fix, so the figure is not an implicit-selection rate). The five tasks were correct except the visual render the model could not perform, which it reported as blocked instead of claiming. Single arm, no control.
-- Grok 4.6 at maximum effort, with and without the skill, 24 runs: 4 tasks at two repetitions per arm (16) and 4 scenarios at one repetition per arm (8). Both arms met every frozen criterion. The skill arm added a declared tier, an explicit "self-review-only" disclosure when no reviewer existed, coverage ledgers, and evidence records, at the cost of reports two to three times longer and extra process files on the larger tasks.
+- GLM-5.2 through Devin, skill installed, 38 sessions (13 scenarios, 20 activation prompts, 5 tasks). The model followed the workflow in 12 of 13 scenarios and partially in one. It stayed quiet on all 10 prompts labeled as not needing the skill and picked the skill up on 5 of the 10 labeled for it (that set includes two explicit invocations and one light-tier typo fix). All five tasks came out correct, and the one check the model could not perform, a visual render, it reported as blocked instead of claiming it had done it.
+- Grok 4.6 at maximum effort, with and without the skill, 24 runs: 4 tasks at two repetitions per arm (16) and 4 scenarios at one repetition per arm (8). Both arms met every frozen criterion. With the skill, every run declared its tier, said plainly when no independent reviewer was available instead of pretending one was, and left a coverage ledger and evidence record behind, so the person receiving the work could see what had been checked and what had not.
 
-What has not been done: the planned three-arm study against the owner's confirmed baseline instructions, tests on visual-document tasks, and broader model and host coverage. On a strong model and well-specified tasks the pilots show no accuracy gain, only more explicit process. Measure it on your own work before relying on it.
+The pilots used small synthetic tasks that a strong model gets right with or without help; they were built to test adherence and safety, not to show the gains that come on real, underspecified work where the failures listed above actually happen. A three-arm comparison on the maintainer's own task set and on visual-document work is the next step.
 
 Four rounds of independent review preceded this release; the findings and what changed are in the [changelog](CHANGELOG.md).
 

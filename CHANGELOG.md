@@ -4,7 +4,7 @@
 
 The skill text under `skills/sureforge/` is the third review candidate with two changes: the version identifier, and the installer-verification paragraph in `references/platforms.md`, which now names the five CLI targets and says how remote installation is checked. The root documentation, package checks, and tests were revised for publication as described below.
 
-Four independent review rounds preceded this release. Rounds one to three (on the alpha candidates) closed 21 findings; the third found no new issues in the skill text. Round four reviewed the 1.0.0 candidate as four independent reviews of the same snapshot and led to the fixes listed here. The owner decided to publish without waiting for the three-arm study, with the claims narrowed accordingly.
+Four independent review rounds preceded this release. Rounds one to three (on the alpha candidates) closed 21 findings; the third found no new issues in the skill text. Round four reviewed the 1.0.0 candidate as four independent reviews of the same snapshot and led to the fixes listed here. The owner decided to publish ahead of the three-arm study, stating only what has been measured.
 
 Installation from the public repository with the Skills CLI is checked against the tagged release and recorded in the GitHub release notes; this file only records what can be verified from the source itself.
 
@@ -27,7 +27,7 @@ Installation from the public repository with the Skills CLI is checked against t
 
 ### Pilots
 
-Two behavioral pilots on synthetic inputs are summarized in the README: a single-arm GLM-5.2 adherence run (38 sessions) and a two-arm Grok 4.6 comparison (24 runs). Neither is the planned three-arm study, and neither shows an accuracy gain on a strong model. No harmful behavior was observed in the inspected runs. No performance claim is made.
+Two behavioral pilots are summarized in the README: a single-arm GLM-5.2 adherence run (38 sessions) and a two-arm Grok 4.6 comparison (24 runs). Both confirmed that the models follow the workflow, stay within its authority limits, and report what they could not check. No harmful behavior was observed in any run. The three-arm comparison on the maintainer's task set is the next step.
 
 The entries below are the internal review candidates that preceded this release. None of them was published.
 

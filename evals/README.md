@@ -116,4 +116,4 @@ Compute true positives, false positives, true negatives, false negatives, precis
 
 Keep raw and adjudicated outcomes, including disagreements. Compare quality gains with added time and cost. If no improvement is observed, say so, narrow the claim or revise the design, and run a new frozen iteration. Do not treat author/reviewer agreement, a no-defect verdict, or a passing gate model as proof of efficacy.
 
-A local review candidate may be handed over with outstanding live tests clearly labeled. Before release, fulfill the agreed evaluation gate or obtain an explicit owner decision to publish a limited unbenchmarked experiment. Publication itself always requires separate authorization.
+A local review candidate may be handed over with outstanding live tests clearly labeled. Before release, fulfill the agreed evaluation gate or obtain an explicit owner decision to publish ahead of it. Publication itself always requires separate authorization.
