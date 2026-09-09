@@ -12,15 +12,35 @@ SureForge is a written procedure aimed at those gaps. It is plain text: a short 
 
 ## Install
 
+The skill is the `skills/sureforge/` folder: one `SKILL.md` plus the reference files and templates it links to. Installing means putting a copy of that folder where your agent looks for skills. Nothing runs at install time and nothing runs afterwards; the agent reads the text when the skill is selected.
+
 With the Skills CLI (Node.js 22.20 or newer), from your project:
 
 ```bash
 npx skills add Da7-Tech/SureForge
 ```
 
-The CLI copies `skills/sureforge/` into the skill directory of the agents you select (Claude Code, Cursor, Codex, Devin, Hermes, and others that follow the Agent Skills standard). When you pass targets on the command line, use the CLI's own identifiers, for example `--agent claude-code --agent cursor --agent codex --agent devin --agent hermes-agent`; Cursor and Codex share `.agents/skills/`. The CLI may also write a `skills-lock.json` in your project; that file can contain local paths, so look at it before committing it.
+The CLI asks which agents to install for and copies the folder into each one's skill directory. To skip the prompt, name the agents with the CLI's identifiers, for example:
 
-Manual install: copy the whole `skills/sureforge/` folder, including `LICENSE`, `references/`, and `assets/`, into your host's skill directory.
+```bash
+npx skills add Da7-Tech/SureForge --agent claude-code --agent codex --agent cursor --agent devin --agent hermes-agent -y
+```
+
+Add `-g` to install at user level instead of in the current project. The CLI may write a `skills-lock.json` in your project; that file can contain local paths, so look at it before committing it. `npx skills update` refreshes installed skills and `npx skills remove` uninstalls them.
+
+Manual install: copy the whole `skills/sureforge/` folder, including `LICENSE`, `references/`, and `assets/`, into the directory your host reads. Copying only `SKILL.md` is not enough, because it links to the other files.
+
+| Host | Project directory | User directory |
+| --- | --- | --- |
+| Claude Code | `.claude/skills/sureforge/` | `~/.claude/skills/sureforge/` |
+| Codex | `.agents/skills/sureforge/` | `~/.agents/skills/sureforge/` |
+| Cursor | `.agents/skills/sureforge/` or `.cursor/skills/sureforge/` | `~/.cursor/skills/sureforge/` or `~/.agents/skills/sureforge/` |
+| Devin CLI | `.devin/skills/sureforge/` | `~/.config/devin/skills/sureforge/` |
+| Hermes Agent | `.hermes/skills/sureforge/` | `~/.hermes/skills/sureforge/` |
+
+These are the directories the pinned Skills CLI and the hosts' own documentation used when this was checked (dates and details in [platforms.md](skills/sureforge/references/platforms.md)). Hosts change their paths; if a skill is not discovered, check the host's current documentation first.
+
+To read the skill without installing anything, open [SKILL.md](skills/sureforge/SKILL.md). It is the same text the agent gets.
 
 ## Use
 
@@ -61,6 +81,7 @@ When something is missing (no internet, no question tool, no reviewer, no render
 - `evals/` is the evaluation kit: thirteen failure scenarios with pass/fail oracles, twenty activation prompts with expected tiers, five synthetic benchmark tasks with hidden grading criteria, a three-arm study protocol, an abstract gate model, and a strict aggregator for run records.
 - `review/` holds the review contract the skill was built against and a neutral intake for fresh-context reviewers.
 - `scripts/` and `tests/` check the package itself: inventory, metadata, links, licenses, privacy patterns, archive integrity, and installation. See [Verification](#verification) for the commands.
+- [CONTRIBUTING](CONTRIBUTING.md), [SECURITY](SECURITY.md), and the [code of conduct](CODE_OF_CONDUCT.md) cover how to propose changes, how to report text that could steer an agent badly, and how people are expected to treat each other here.
 
 ## How it has been tested
 

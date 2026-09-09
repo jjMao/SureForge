@@ -20,6 +20,11 @@ Installation from the public repository with the Skills CLI is checked against t
 - `review/toolchain.json` describes the installer's dependency versions as observed in the pinned test install rather than as pins, since the installer declares caret ranges.
 - Placeholder account names in a privacy test were replaced with neutral ones.
 
+### Added
+
+- Per-host install directories, update and removal commands, and a note that the skill can be read without installing it, in the README.
+- Issue templates for behavior reports, install or documentation problems, and proposals; a pull request template; a security policy; a code of conduct.
+
 ### Pilots
 
 Two behavioral pilots on synthetic inputs are summarized in the README: a single-arm GLM-5.2 adherence run (38 sessions) and a two-arm Grok 4.6 comparison (24 runs). Neither is the planned three-arm study, and neither shows an accuracy gain on a strong model. No harmful behavior was observed in the inspected runs. No performance claim is made.

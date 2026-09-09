@@ -1,11 +1,18 @@
 {
   "purpose": "Exact distributable file inventory. Author reports, local tool installations, caches, raw sessions, and Git metadata are not part of the blind source package.",
   "files": [
+    ".github/ISSUE_TEMPLATE/behavior_report.md",
+    ".github/ISSUE_TEMPLATE/config.yml",
+    ".github/ISSUE_TEMPLATE/install_or_docs.md",
+    ".github/ISSUE_TEMPLATE/proposal.md",
+    ".github/PULL_REQUEST_TEMPLATE.md",
     ".gitignore",
     "CHANGELOG.md",
+    "CODE_OF_CONDUCT.md",
     "CONTRIBUTING.md",
     "LICENSE",
     "README.md",
+    "SECURITY.md",
     "VERSION",
     "evals/README.md",
     "evals/activation.json",

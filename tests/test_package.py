@@ -47,7 +47,7 @@ class PackageTests(unittest.TestCase):
     def test_complete_source_is_accepted(self):
         report = validate_package(self.root)
         self.assertEqual(report["status"], "passed", report["issues"])
-        self.assertEqual(report["files_checked"], 45)
+        self.assertEqual(report["files_checked"], 52)
 
     def test_skill_name_mismatch_is_rejected(self):
         self.rewrite("skills/sureforge/SKILL.md", "name: sureforge", "name: WrongName")
@@ -150,7 +150,7 @@ class PackageTests(unittest.TestCase):
         self.assertEqual(verify_archive(target, self.root)["source_sha256"], source_manifest(self.root)["source_sha256"])
         with zipfile.ZipFile(target) as archive:
             self.assertEqual(archive.comment, b"")
-            self.assertEqual(len(archive.infolist()), 46)
+            self.assertEqual(len(archive.infolist()), 53)
             for entry in archive.infolist():
                 self.assertTrue(entry.filename.startswith("SureForge/") or entry.filename == "MANIFEST.json")
                 self.assertEqual(entry.extra, b"")
