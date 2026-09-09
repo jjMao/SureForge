@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0-alpha.3 — unpublished third-round review candidate
+## 0.1.0-alpha.3 — first public alpha (2026-09-09)
 
 ### Fixed
 
@@ -8,11 +8,11 @@
 - Exercise that gate using unit fixtures tagged `model-run`, including a fully populated positive control, instead of relying on the unrelated synthetic-data limitation.
 - Avoid privacy false positives on approximate numeric fractions/rates and embedded tildes while retaining detection of standalone named-home paths.
 
-### Review and evaluation status
+### Published
 
-- Alpha.2's second external review closed the earlier findings and identified the two issues repaired here. Alpha.3 is for the third agreed review, not a reset of the counter or an independent approval.
-- The owner requested skill tests with Devin's free GLM-5.2 option. A model catalog entry or authorization is not evidence that the tests ran, and a single-treatment adherence evaluation does not replace the three-arm study.
-- Prior interrupted sessions and the separate consumption diagnostic are not silently relabeled as completed benchmark cells. Publication remains unapproved.
+- Third external review of this snapshot found no new issues; the 21 findings from the three rounds are closed. The skill text is unchanged since the review; only README, CHANGELOG, and the review contract were updated for publication.
+- Published to GitHub as Da7-Tech/SureForge by the owner's explicit decision as an experimental alpha with narrowed claims. Remote installation with the Skills CLI was tested on the published repository (five host targets, byte-identical to the source).
+- Two behavioral pilots on synthetic inputs are summarized in the README: a single-arm GLM-5.2 adherence run (38 sessions) and a two-arm Grok 4.6 comparison (24 runs). Neither is the planned three-arm study, and neither shows an accuracy gain on a strong model; both show the workflow being followed without harmful behavior.
 
 ## 0.1.0-alpha.2 — unpublished review candidate
 

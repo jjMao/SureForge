@@ -1,14 +1,18 @@
 # SureForge review contract
 
-Contract version: 1.2. Candidate version: 0.1.0-alpha.3.
+Contract version: 1.3. Candidate version: 0.1.0-alpha.3.
 
 ## Purpose and authority
 
 Build an English, instruction-only Agent Skill named **SureForge** (`sureforge`) for complex tasks. Its intended benefit is fewer avoidable errors at the first user-facing delivery through research, explicit decisions, staged work, independent review, and version-bound evidence. Benefit is a hypothesis until measured. The skill is not a runtime enforcement engine and does not promise error-free work.
 
-The current assignment authorizes local repairs following the second external review, verification, a new neutral bundle, and skill testing through Devin's explicitly free GLM-5.2 option. Verify the actual free model identifier and stop rather than silently selecting paid variants or fallbacks. The earlier GLM 5.3 sessions and consumption check remain separate, incomplete study evidence; this assignment does not silently resume those paid-model runs. The owner permitted subordinate review agents, but each experiment still needs recorded limits, scope, and a frozen design. Only synthetic or approved redacted task material may be used. No remote repository, publication, push, release, global agent-configuration change, or exposure of private session history is authorized.
+Versions 1.0 to 1.2 of this contract authorized local authoring, repairs after each external review round, neutral review bundles, and bounded model pilots (a GLM 5.3 session that was superseded, a single-arm GLM-5.2 adherence run, and a two-arm Grok 4.6 comparison). Only synthetic task material has been used. Personal names, contact details, identifying local paths, credentials, and session transcripts stay out of the distributable.
 
-The cloud and local alpha.1 reviews together form round one; the alpha.2 review is round two. Alpha.3 is the candidate for the third and final agreed external review, not a reset or a completed third-round verdict. Preserve earlier findings and evidence. The reviewer's disclosed design participation remains a limitation. Author tests, model smoke tests, and changes of model do not constitute independent approval of the repaired candidate.
+The cloud and local alpha.1 reviews together form round one; the alpha.2 review is round two; the alpha.3 review is round three and found no new issues. The reviewer's disclosed design participation remains a limitation. Author tests, model pilots, and changes of model do not constitute independent approval by themselves.
+
+## Publication decision (2026-09-09)
+
+After the third review, the owner explicitly decided to publish 0.1.0-alpha.3 as an experimental alpha with narrowed claims, without waiting for the three-arm study. The release steps recorded for that decision: the 21 findings from three review rounds are closed; the repository Da7-Tech/SureForge was created and the commits carry only the public Da7-Tech identity (author and committer checked on the remote); the remote installation command was tested against the published repository; the README states what was and was not measured. The three-arm study with the owner's confirmed baseline instructions, redacted real incidents, and visual-document tasks remain outstanding, and no general performance claim is made.
 
 Public identity: `Da7-Tech`. License: MIT. No personal names, personal contact details, identifying local paths, credentials, or raw conversation logs belong in the distributable. No Git commit identity is assumed or fabricated.
 
@@ -85,4 +89,4 @@ Local author checks use three different methods: requirement and consistency ins
 
 ## Release gate
 
-This contract permits an unpublished review candidate with limitations recorded. The repaired snapshot still needs its own next-round external review, and confirmed evaluation inputs remain outstanding until actually supplied. Completed reviews of alpha.1 and alpha.2 do not approve changed alpha.3 bytes. Before any release, resolve material findings, run the authorized behavioral study or obtain an explicit decision to publish an unbenchmarked experimental candidate with narrowed claims, recheck affected evidence, audit the actual Git metadata, test the intended remote install after authorization, and obtain explicit publication approval. Do not silently relax a release criterion or claim general superiority from a small synthetic pilot.
+Before any release: resolve material findings, run the authorized behavioral study or obtain an explicit owner decision to publish an unbenchmarked experimental candidate with narrowed claims, recheck affected evidence, audit the actual Git metadata, test the intended remote install after authorization, and obtain explicit publication approval. Do not silently relax a release criterion or claim general superiority from a small synthetic pilot. For 0.1.0-alpha.3 these steps were taken under the publication decision above; the behavioral-study path was not taken, so the release carries alpha status and no efficacy claim. Any later release repeats this gate on its own snapshot.
