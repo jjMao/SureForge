@@ -1,6 +1,14 @@
 # Changelog
 
-## 0.1.0-alpha.3 — first public alpha (2026-09-09)
+## 1.0.0 — first public release (2026-09-09)
+
+Published to GitHub as Da7-Tech/SureForge. The skill text is the third review candidate unchanged; three external review rounds closed 21 findings before release, and the third round found no new issues. Remote installation with the Skills CLI was tested on the published repository (five host targets, byte-identical to the source).
+
+Two behavioral pilots on synthetic inputs are summarized in the README: a single-arm GLM-5.2 adherence run (38 sessions) and a two-arm Grok 4.6 comparison (24 runs). Neither is the planned three-arm study, and neither shows an accuracy gain on a strong model; both show the workflow being followed without harmful behavior. No performance claim is made.
+
+The entries below are the internal review candidates that preceded this release. None of them was published.
+
+## 0.1.0-alpha.3 — third review candidate
 
 ### Fixed
 
@@ -8,13 +16,7 @@
 - Exercise that gate using unit fixtures tagged `model-run`, including a fully populated positive control, instead of relying on the unrelated synthetic-data limitation.
 - Avoid privacy false positives on approximate numeric fractions/rates and embedded tildes while retaining detection of standalone named-home paths.
 
-### Published
-
-- Third external review of this snapshot found no new issues; the 21 findings from the three rounds are closed. The skill text is unchanged since the review; only README, CHANGELOG, and the review contract were updated for publication.
-- Published to GitHub as Da7-Tech/SureForge by the owner's explicit decision as an experimental alpha with narrowed claims. Remote installation with the Skills CLI was tested on the published repository (five host targets, byte-identical to the source).
-- Two behavioral pilots on synthetic inputs are summarized in the README: a single-arm GLM-5.2 adherence run (38 sessions) and a two-arm Grok 4.6 comparison (24 runs). Neither is the planned three-arm study, and neither shows an accuracy gain on a strong model; both show the workflow being followed without harmful behavior.
-
-## 0.1.0-alpha.2 — unpublished review candidate
+## 0.1.0-alpha.2 — second review candidate
 
 ### Fixed
 
@@ -38,7 +40,7 @@
 - The three-arm study remains unrun until its separate inputs, including confirmed owner instructions, are supplied. A two-arm pilot must not be reported as that full study.
 - No publication or general performance claim is authorized by this revision.
 
-## 0.1.0-alpha.1 — unpublished review candidate
+## 0.1.0-alpha.1 — first review candidate
 
 ### Added
 

@@ -1,6 +1,6 @@
 # SureForge review contract
 
-Contract version: 1.3. Candidate version: 0.1.0-alpha.3.
+Contract version: 1.3. Released version: 1.0.0 (the third review candidate, 0.1.0-alpha.3, with only the version identifiers changed).
 
 ## Purpose and authority
 
@@ -12,7 +12,7 @@ The cloud and local alpha.1 reviews together form round one; the alpha.2 review 
 
 ## Publication decision (2026-09-09)
 
-After the third review, the owner explicitly decided to publish 0.1.0-alpha.3 as an experimental alpha with narrowed claims, without waiting for the three-arm study. The release steps recorded for that decision: the 21 findings from three review rounds are closed; the repository Da7-Tech/SureForge was created and the commits carry only the public Da7-Tech identity (author and committer checked on the remote); the remote installation command was tested against the published repository; the README states what was and was not measured. The three-arm study with the owner's confirmed baseline instructions, redacted real incidents, and visual-document tasks remain outstanding, and no general performance claim is made.
+After the third review, the owner explicitly decided to publish the reviewed candidate as version 1.0.0, the first public release, with narrowed claims and without waiting for the three-arm study. The release steps recorded for that decision: the 21 findings from three review rounds are closed; the repository Da7-Tech/SureForge was created and the commits carry only the public Da7-Tech identity (author and committer checked on the remote); the remote installation command was tested against the published repository; the README states what was and was not measured. The three-arm study with the owner's confirmed baseline instructions, redacted real incidents, and visual-document tasks remain outstanding, and no general performance claim is made.
 
 Public identity: `Da7-Tech`. License: MIT. No personal names, personal contact details, identifying local paths, credentials, or raw conversation logs belong in the distributable. No Git commit identity is assumed or fabricated.
 
@@ -89,4 +89,4 @@ Local author checks use three different methods: requirement and consistency ins
 
 ## Release gate
 
-Before any release: resolve material findings, run the authorized behavioral study or obtain an explicit owner decision to publish an unbenchmarked experimental candidate with narrowed claims, recheck affected evidence, audit the actual Git metadata, test the intended remote install after authorization, and obtain explicit publication approval. Do not silently relax a release criterion or claim general superiority from a small synthetic pilot. For 0.1.0-alpha.3 these steps were taken under the publication decision above; the behavioral-study path was not taken, so the release carries alpha status and no efficacy claim. Any later release repeats this gate on its own snapshot.
+Before any release: resolve material findings, run the authorized behavioral study or obtain an explicit owner decision to publish an unbenchmarked experimental candidate with narrowed claims, recheck affected evidence, audit the actual Git metadata, test the intended remote install after authorization, and obtain explicit publication approval. Do not silently relax a release criterion or claim general superiority from a small synthetic pilot. For 1.0.0 these steps were taken under the publication decision above; the behavioral-study path was not taken, so the release makes no efficacy claim. Any later release repeats this gate on its own snapshot.

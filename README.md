@@ -2,7 +2,7 @@
 
 An instruction-only Agent Skill for complex work. It tells an AI agent to research before it asks, ask before it plans, plan before it builds, verify before it delivers, and to get an independent review before it calls anything done.
 
-Version 0.1.0-alpha.3. MIT license. Maintained by Da7-Tech.
+Version 1.0.0. MIT license. Maintained by Da7-Tech.
 
 ## Why this exists
 
@@ -71,7 +71,7 @@ Behavior: two small pilots, both on synthetic inputs.
 - GLM-5.2 through Devin, skill installed, 38 sessions (13 scenarios, 20 activation prompts, 5 tasks). The model followed the workflow in 12 of 13 scenarios and partially in one; it did not activate on any of the 10 trivial prompts and activated on 5 of the 10 substantial ones; the five tasks were correct except the visual render the model could not perform, which it reported as blocked instead of claiming. Single arm, no control.
 - Grok 4.6 at maximum effort, with and without the skill, 24 runs (4 tasks and 4 scenarios). Both arms met every frozen criterion. The skill arm added a declared tier, an explicit "self-review-only" disclosure when no reviewer existed, coverage ledgers, and evidence records, at the cost of reports two to three times longer and extra process files on the larger tasks.
 
-What has not been done: the planned three-arm study against the owner's confirmed baseline instructions, tests on visual-document tasks, and broader model and host coverage. On a strong model and well-specified tasks the pilots show no accuracy gain, only more explicit process. Treat this as an alpha and measure it on your own work before relying on it.
+What has not been done: the planned three-arm study against the owner's confirmed baseline instructions, tests on visual-document tasks, and broader model and host coverage. On a strong model and well-specified tasks the pilots show no accuracy gain, only more explicit process. Measure it on your own work before relying on it.
 
 ## Verification
 

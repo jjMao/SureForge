@@ -4,7 +4,7 @@ description: Quality-control workflow for complex, multi-step tasks that need re
 license: MIT
 metadata:
   author: Da7-Tech
-  version: "0.1.0-alpha.3"
+  version: "1.0.0"
 ---
 
 # SureForge

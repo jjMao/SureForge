@@ -1,6 +1,6 @@
 {
   "study_id": "sureforge-pilot-1",
-  "skill_version": "0.1.0-alpha.3",
+  "skill_version": "1.0.0",
   "status": "not-run",
   "dataset_origin": "synthetic; no owner incidents supplied",
   "baseline_status": "reconstructed-awaiting-owner-confirmation",
