@@ -27,6 +27,7 @@
     "review/requirements.json",
     "review/toolchain.json",
     "scripts/check_package.py",
+    "scripts/mutation_audit.py",
     "scripts/package_review.py",
     "scripts/verify_install.py",
     "skills/sureforge/LICENSE",

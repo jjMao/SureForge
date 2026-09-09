@@ -8,7 +8,7 @@ Version 1.0.0. MIT license. Maintained by Da7-Tech.
 
 Agents fail in predictable ways on big tasks. They start building before the request is understood. They treat a skipped question as a yes. They check a sample and call it complete. They re-read their own work and call it a review. They run out of review rounds and ship anyway.
 
-SureForge is a written procedure that closes those gaps. It is plain text: a short entry point plus reference files the agent loads when it needs them. There is no runtime, no hook, and no dependency. The agent follows it the way it follows any other skill, which also means the skill cannot force anything; it can only make the right behavior explicit and the shortcuts visible.
+SureForge is a written procedure aimed at those gaps. It is plain text: a short entry point plus reference files the agent loads when it needs them. There is no runtime, no hook, and no dependency. The agent follows it the way it follows any other skill, which also means the skill cannot force anything; it can only make the right behavior explicit and the shortcuts visible.
 
 ## Install
 
@@ -18,7 +18,7 @@ With the Skills CLI (Node.js 22.20 or newer), from your project:
 npx skills add Da7-Tech/SureForge
 ```
 
-The CLI copies `skills/sureforge/` into the skill directory of the agents you select (Claude Code, Cursor, Codex, Devin, Hermes, and others that follow the Agent Skills standard). It may also write a `skills-lock.json` in your project; that file can contain local paths, so look at it before committing it.
+The CLI copies `skills/sureforge/` into the skill directory of the agents you select (Claude Code, Cursor, Codex, Devin, Hermes, and others that follow the Agent Skills standard). When you pass targets on the command line, use the CLI's own identifiers, for example `--agent claude-code --agent cursor --agent codex --agent devin --agent hermes-agent`; Cursor and Codex share `.agents/skills/`. The CLI may also write a `skills-lock.json` in your project; that file can contain local paths, so look at it before committing it.
 
 Manual install: copy the whole `skills/sureforge/` folder, including `LICENSE`, `references/`, and `assets/`, into your host's skill directory.
 
@@ -32,7 +32,7 @@ For high-stakes work, ask for full mode:
 
 > Use SureForge in full mode. Do not pass a gate without three verification methods of your own and three from an independent reviewer. If a reviewer or tool is missing, tell me instead of pretending.
 
-Small tasks stay small. If you ask SureForge to fix a typo, it fixes the typo and checks the diff; it does not start a research project.
+Small tasks are meant to stay small. If you ask SureForge to fix a typo, the instructions call for fixing the typo and checking the diff, not for starting a research project.
 
 ## How it works
 
@@ -64,14 +64,20 @@ When something is missing (no internet, no question tool, no reviewer, no render
 
 ## How it has been tested
 
-Package: 112 unit tests pass on Python 3.11 and 3.14; 20 seeded implementation faults are all caught by the tests; the skill passes the reference `skills-ref` validator; installation with the Skills CLI into Devin, Cursor, Codex, Claude Code, and Hermes directories is byte-identical to the source; Devin discovers the installed skill. Three rounds of external review closed 21 findings before this release.
+Three kinds of evidence, kept apart because they prove different things.
 
-Behavior: two small pilots, both on synthetic inputs.
+Mechanical checks you can rerun from this repository: the unit tests (see [Verification](#verification)) pass on Python 3.11 and 3.14, and every fault listed in `scripts/mutation_audit.py` is caught by them when seeded into a temporary copy. The skill passes the reference `skills-ref` validator at the commit pinned in `review/toolchain.json`.
 
-- GLM-5.2 through Devin, skill installed, 38 sessions (13 scenarios, 20 activation prompts, 5 tasks). The model followed the workflow in 12 of 13 scenarios and partially in one; it did not activate on any of the 10 trivial prompts and activated on 5 of the 10 substantial ones; the five tasks were correct except the visual render the model could not perform, which it reported as blocked instead of claiming. Single arm, no control.
-- Grok 4.6 at maximum effort, with and without the skill, 24 runs (4 tasks and 4 scenarios). Both arms met every frozen criterion. The skill arm added a declared tier, an explicit "self-review-only" disclosure when no reviewer existed, coverage ledgers, and evidence records, at the cost of reports two to three times longer and extra process files on the larger tasks.
+Installation checks, run locally with Skills CLI 1.5.23 in an isolated project: copies installed for the five CLI targets Claude Code, Cursor, Codex, Devin, and Hermes (four directories, since Cursor and Codex share one) were byte-identical to `skills/sureforge/`, and Devin CLI 3000.6.14 listed the installed skill. Installation from the public repository is checked when a release is tagged and recorded in that release's notes, not here.
+
+Behavior, from two small pilots on synthetic inputs. These are the owner's observations; the run logs are not part of this repository.
+
+- GLM-5.2 through Devin, skill installed, 38 sessions (13 scenarios, 20 activation prompts, 5 tasks). The model followed the workflow in 12 of 13 scenarios and partially in one. It did not activate on any of the 10 prompts labeled as not needing the skill, and activated on 5 of the 10 labeled for activation (that set includes two explicit invocations and one light-tier typo fix, so the figure is not an implicit-selection rate). The five tasks were correct except the visual render the model could not perform, which it reported as blocked instead of claiming. Single arm, no control.
+- Grok 4.6 at maximum effort, with and without the skill, 24 runs: 4 tasks at two repetitions per arm (16) and 4 scenarios at one repetition per arm (8). Both arms met every frozen criterion. The skill arm added a declared tier, an explicit "self-review-only" disclosure when no reviewer existed, coverage ledgers, and evidence records, at the cost of reports two to three times longer and extra process files on the larger tasks.
 
 What has not been done: the planned three-arm study against the owner's confirmed baseline instructions, tests on visual-document tasks, and broader model and host coverage. On a strong model and well-specified tasks the pilots show no accuracy gain, only more explicit process. Measure it on your own work before relying on it.
+
+Four rounds of independent review preceded this release; the findings and what changed are in the [changelog](CHANGELOG.md).
 
 ## Verification
 
@@ -82,7 +88,13 @@ python3 -B -m scripts.check_package
 python3 -B -m unittest discover -s tests -v
 ```
 
-The first command checks the file inventory, skill metadata, links, licenses, requirement references, evaluation data, syntax, and privacy patterns. The second runs the package, gate-model, and metrics tests. To compare an installed copy with the source:
+The first command checks the file inventory, skill metadata, links, licenses, requirement references, evaluation data, syntax, version consistency across the public documents, and privacy patterns. The second runs the package, gate-model, and metrics tests. To seed each listed implementation fault into a temporary copy and confirm the tests catch it (a few minutes):
+
+```bash
+python3 -B -m scripts.mutation_audit
+```
+
+To compare an installed copy with the source:
 
 ```bash
 python3 -B -m scripts.verify_install --installed path/to/installed/sureforge

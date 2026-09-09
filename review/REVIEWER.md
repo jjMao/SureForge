@@ -13,7 +13,7 @@ The current scope is local review only. Do not create a repository, publish, pus
 - The source inventory and the archive manifest when provided.
 - The neutral task inputs and acceptance criteria necessary for checking the package.
 
-Author self-assessments, test result summaries, defenses, and desired verdicts are intentionally outside the blind bundle. Do not request them before choosing and performing your initial review methods. Tests and expected-outcome fixtures in the source are reviewable material, not evidence that the author ran them successfully. Relevant sources, risks, and contractual limits must not be withheld.
+Author self-assessments, audit reports, defenses, and desired verdicts are intentionally outside the blind bundle. Do not request them before choosing and performing your initial review methods. The public documents inside the source (README, changelog, contract) do summarize the owner's own checks and pilots because they are part of what ships; treat every such statement as a claim to verify against the source and your own runs, not as evidence. Tests and expected-outcome fixtures in the source are reviewable material, not evidence that the author ran them successfully. Relevant sources, risks, and contractual limits must not be withheld.
 
 ## Conduct your review
 

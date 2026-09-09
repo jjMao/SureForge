@@ -1,5 +1,6 @@
 import csv
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -46,7 +47,7 @@ class PackageTests(unittest.TestCase):
     def test_complete_source_is_accepted(self):
         report = validate_package(self.root)
         self.assertEqual(report["status"], "passed", report["issues"])
-        self.assertEqual(report["files_checked"], 44)
+        self.assertEqual(report["files_checked"], 45)
 
     def test_skill_name_mismatch_is_rejected(self):
         self.rewrite("skills/sureforge/SKILL.md", "name: sureforge", "name: WrongName")
@@ -149,7 +150,7 @@ class PackageTests(unittest.TestCase):
         self.assertEqual(verify_archive(target, self.root)["source_sha256"], source_manifest(self.root)["source_sha256"])
         with zipfile.ZipFile(target) as archive:
             self.assertEqual(archive.comment, b"")
-            self.assertEqual(len(archive.infolist()), 45)
+            self.assertEqual(len(archive.infolist()), 46)
             for entry in archive.infolist():
                 self.assertTrue(entry.filename.startswith("SureForge/") or entry.filename == "MANIFEST.json")
                 self.assertEqual(entry.extra, b"")
@@ -295,7 +296,7 @@ class PackageTests(unittest.TestCase):
 
     def set_version(self, version):
         current = (self.root / "VERSION").read_text(encoding="utf-8").strip()
-        for relative in ("VERSION", "skills/sureforge/SKILL.md", "evals/study.json"):
+        for relative in ("VERSION", "skills/sureforge/SKILL.md", "evals/study.json", "README.md", "CHANGELOG.md", "review/CONTRACT.md"):
             path = self.root / relative
             path.write_text(path.read_text(encoding="utf-8").replace(current, version), encoding="utf-8")
 
@@ -452,7 +453,7 @@ class PackageTests(unittest.TestCase):
                 self.assertEqual(checked["status"], "passed", checked["issues"])
 
     def test_named_home_paths_require_a_standalone_tilde(self):
-        for name in ("alice", "_service", "Alice.smith-1"):
+        for name in ("sample_user", "_service", "Sample.account-1"):
             path = "~" + name + "/notes"
             with self.subTest(name=name):
                 self.assertIn("identifying-home-path", privacy_findings(path))
@@ -466,9 +467,111 @@ class PackageTests(unittest.TestCase):
 
         guide = (self.root / "CONTRIBUTING.md").read_text(encoding="utf-8")
         self.assertIn("JSON-compatible double-quoted strings", guide)
-        self.assertIn("Folded/literal blocks, lists", guide)
+        self.assertIn("Anything else is rejected rather than read as a string", guide)
         with self.assertRaisesRegex(ValueError, "unsupported repository frontmatter syntax"):
             parse_frontmatter("---\nname: sureforge\ndescription: >\n  Folded text.\n---\nBody\n")
+
+    def test_non_string_yaml_scalars_are_rejected_not_stringified(self):
+        from scripts.check_package import parse_frontmatter
+
+        rejected = ("null", "~", "true", "False", "[quality, control]", "{a: b}", "|", ">", "'single quoted'", "42", "1.5", "-3", "0x1F", ".inf", "&anchor text", "*alias", "!!str tagged", "text # trailing comment", "trailing colon:", "nested: mapping", '"not a string", 1')
+        for value in rejected:
+            with self.subTest(value=value):
+                with self.assertRaises(ValueError):
+                    parse_frontmatter(f"---\nname: sureforge\ndescription: {value}\n---\nBody\n")
+        accepted = ("Plain text with 1.0.0, commas, and a URL https://example.test/path", '"Quoted \\"text\\" with escapes"', "1.0.0", "v2", "true story", "null-safe")
+        for value in accepted:
+            with self.subTest(value=value):
+                self.assertIsInstance(parse_frontmatter(f"---\nname: sureforge\ndescription: {value}\n---\nBody\n")["description"], str)
+
+    def test_non_string_description_fails_the_package_check_and_archive(self):
+        original = (self.root / "skills/sureforge/SKILL.md").read_text(encoding="utf-8")
+        description = next(line for line in original.splitlines() if line.startswith("description: "))
+        for value in ("null", "[quality, control]", "|"):
+            with self.subTest(value=value):
+                (self.root / "skills/sureforge/SKILL.md").write_text(original.replace(description, f"description: {value}", 1), encoding="utf-8")
+                self.assert_rejected("frontmatter-syntax")
+                with self.assertRaises(ValueError):
+                    build_bundle(self.root, self.base / f"rejected-{len(value)}.zip")
+
+    def test_inventory_paths_reject_absolute_and_dot_segments(self):
+        from scripts.check_package import safe_relative
+
+        for name in ("/etc/passwd", "a/../b.txt", "./a.txt", "a/./b.txt", "..", "a//b.txt", "a/", "", "C:x", "a\\b"):
+            with self.subTest(name=name):
+                self.assertFalse(safe_relative(name))
+        self.assertTrue(safe_relative("a/b.txt"))
+        for name in ("/etc/passwd", "evals/../README.md"):
+            with self.subTest(inventory=name):
+                path = self.root / "review/inventory.json"
+                data = load_json((ROOT / "review/inventory.json").read_text(encoding="utf-8"))
+                data["files"].append(name)
+                path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+                self.assert_rejected("invalid-inventory")
+
+    def test_unlinked_resource_is_rejected(self):
+        skill = self.root / "skills/sureforge/SKILL.md"
+        text = skill.read_text(encoding="utf-8")
+        self.assertIn("(assets/critic-brief.md)", text)
+        skill.write_text(text.replace("(assets/critic-brief.md)", "(assets/reviewer-brief.md)"), encoding="utf-8")
+        self.assert_rejected("resource-not-directly-linked:assets/critic-brief.md")
+
+    def test_one_way_scenario_mapping_is_rejected(self):
+        path = self.root / "review/requirements.json"
+        data = load_json(path.read_text(encoding="utf-8"))
+        row = next(row for row in data["requirements"] if row["id"] == "SF-01")
+        cases = load_json((self.root / "evals/cases.json").read_text(encoding="utf-8"))["cases"]
+        unmapped = next(case["id"] for case in cases if "SF-01" not in case["requirements"])
+        row["scenarios"] = sorted(set(row["scenarios"]) | {unmapped})
+        path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+        self.assert_rejected("scenario-map-not-bidirectional")
+
+    def test_archive_verification_rejects_non_normalized_metadata(self):
+        target = self.base / "review.zip"
+        build_bundle(self.root, target)
+        for label, change in (("timestamp", {"date_time": (2021, 6, 1, 12, 0, 0)}), ("mode", {"external_attr": (0o100755) << 16}), ("extra", {"extra": b"\x55\x54\x05\x00\x03\x00\x00\x00\x00"}), ("comment", {"comment": b"note"})):
+            altered = self.base / f"altered-{label}.zip"
+            with zipfile.ZipFile(target) as original, zipfile.ZipFile(altered, "w") as changed:
+                for entry in original.infolist():
+                    data = original.read(entry.filename)
+                    if entry.filename == "SureForge/README.md":
+                        for attribute, value in change.items():
+                            setattr(entry, attribute, value)
+                    changed.writestr(entry, data)
+            with self.subTest(label=label):
+                with self.assertRaisesRegex(ValueError, "non-normalized archive metadata"):
+                    verify_archive(altered)
+
+    def test_public_documents_must_carry_the_current_version(self):
+        version = (self.root / "VERSION").read_text(encoding="utf-8").strip()
+        for name in ("README.md", "CHANGELOG.md", "review/CONTRACT.md"):
+            with self.subTest(name=name):
+                path = self.root / name
+                original = path.read_text(encoding="utf-8")
+                self.assertIn(version, original)
+                path.write_text(original.replace(version, "9.9.9"), encoding="utf-8")
+                self.assert_rejected(f"{name}: public-version-missing:{version}")
+                path.write_text(original, encoding="utf-8")
+        self.assertEqual(validate_package(self.root)["status"], "passed")
+
+    def test_live_repository_root_passes_the_package_check(self):
+        report = validate_package(ROOT)
+        self.assertEqual(report["status"], "passed", report["issues"])
+
+    @unittest.skipIf(os.environ.get("SUREFORGE_MUTATION_AUDIT"), "not re-entered from inside a mutation audit")
+    def test_mutation_audit_kills_a_seeded_fault_and_reports_a_survivor(self):
+        from scripts.mutation_audit import MUTATIONS, audit
+
+        names = [mutation[0] for mutation in MUTATIONS]
+        self.assertEqual(len(names), len(set(names)))
+        self.assertGreaterEqual(len(names), 20)
+        survivor = ("no-op", "evals/gate_model.py", "def decide(gate):", "def decide(gate):  # unchanged", "test_gates.py")
+        report = audit(self.root, self.base, mutations=(MUTATIONS[0], survivor))
+        self.assertEqual(report["status"], "failed")
+        self.assertEqual([item["status"] for item in report["observations"]], ["killed", "survived-or-invalid"])
+        self.assertTrue(report["observations"][0]["failing_tests"])
+        self.assertTrue(report["source_unchanged"])
+        self.assertEqual(validate_package(self.root)["status"], "passed")
 
 
 if __name__ == "__main__":

@@ -8,10 +8,11 @@
     "published_on": "2026-08-18",
     "node_minimum": "22.20.0",
     "integrity": "sha512-+hMNBSi35yfX0sKD+ZcRm9y5or7u313OdkcvrRvJAsAzGCaA8wRTu2OmVdN0KRbk9ybqKby5dijkn6OVvNTUmw==",
-    "test_install_top_level_dependency_pins": {"tar": "7.5.20", "yaml": "2.8.3"},
+    "test_install_dependency_versions_observed": {"tar": "7.5.20", "yaml": "2.8.3"},
+    "dependency_note": "The installer declares caret ranges (^7.5.20, ^2.8.3); the versions above were resolved in the recorded test installation and a fresh install may resolve newer patch or minor releases.",
     "lifecycle_scripts": "disabled during local tooling installation",
     "telemetry": "DISABLE_TELEMETRY=1 and DO_NOT_TRACK=1",
-    "target": "isolated Devin project; copy mode; no global installation"
+    "target": "isolated project; copy mode; five CLI targets (claude-code, cursor, codex, devin, hermes-agent); no global installation"
   },
   "reference_validator": {
     "repository": "https://github.com/agentskills/agentskills",

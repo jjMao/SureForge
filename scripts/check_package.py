@@ -6,12 +6,13 @@ import os
 import re
 import unicodedata
 from datetime import datetime, timezone
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL = "skills/sureforge/SKILL.md"
+PUBLIC_VERSION_DOCUMENTS = ("README.md", "CHANGELOG.md", "review/CONTRACT.md")
 IGNORED_DIRECTORIES = frozenset({".git", ".venv", ".local", "__pycache__", ".pytest_cache"})
 IGNORED_METADATA_FILES = frozenset({".DS_Store"})
 REQUIREMENTS = frozenset(f"SF-{number:02d}" for number in range(1, 46))
@@ -44,8 +45,7 @@ def load_json(text):
 def safe_relative(name):
     if not isinstance(name, str) or not name or "\\" in name or ":" in name or any(ord(character) < 32 or ord(character) == 127 for character in name):
         return False
-    path = PurePosixPath(name)
-    return not path.is_absolute() and all(part not in {".", "..", ""} for part in name.split("/"))
+    return all(part not in {".", "..", ""} for part in name.split("/"))
 
 
 def collect_files(root):
@@ -105,6 +105,25 @@ def has_non_latin_letters(text):
     return any(not character.isascii() and unicodedata.category(character).startswith("L") and not unicodedata.name(character, "").startswith("LATIN ") for character in text)
 
 
+YAML_NON_STRING_PLAIN = re.compile(
+    r"~|null|true|false|yes|no|on|off|[-+]?(?:0|[1-9][0-9_]*)|[-+]?0x[0-9a-fA-F_]+|[-+]?0o[0-7_]+"
+    r"|[-+]?(?:[0-9][0-9_]*)?\.[0-9_]*(?:[eE][-+]?[0-9]+)?|[-+]?[0-9][0-9_]*[eE][-+]?[0-9]+|[-+]?\.(?:inf|nan)",
+    re.IGNORECASE,
+)
+YAML_INDICATORS = frozenset("[]{}|>'&*!%@`,?")
+
+
+def _frontmatter_string(value):
+    if value.startswith('"'):
+        parsed = json.loads(value)
+        if not isinstance(parsed, str):
+            raise ValueError("unsupported repository frontmatter syntax")
+        return parsed
+    if value[0] in YAML_INDICATORS or value.endswith(":") or ": " in value or " #" in value or YAML_NON_STRING_PLAIN.fullmatch(value):
+        raise ValueError("unsupported repository frontmatter syntax")
+    return value
+
+
 def parse_frontmatter(text):
     lines = text.splitlines()
     if not lines or lines[0] != "---" or "---" not in lines[1:]:
@@ -128,7 +147,7 @@ def parse_frontmatter(text):
             continue
         if not value:
             raise ValueError("empty frontmatter value")
-        target[key] = json.loads(value) if value.startswith('"') else value
+        target[key] = _frontmatter_string(value)
         if not nested:
             section = key
     return data
@@ -283,7 +302,11 @@ def validate_package(root=ROOT, private_terms=()):
             issues.extend(f"{name}: unlisted-file" for name in sorted(set(files) - set(inventory)))
         if texts["LICENSE"] != texts["skills/sureforge/LICENSE"] or not texts["LICENSE"].startswith("MIT License\n") or "Copyright (c) 2026 Da7-Tech" not in texts["LICENSE"]:
             issues.append("LICENSE: license-mismatch")
-        metadata = parse_frontmatter(texts[SKILL])
+        try:
+            metadata = parse_frontmatter(texts[SKILL])
+        except ValueError as error:
+            issues.append(f"{SKILL}: frontmatter-syntax:{error}")
+            metadata = {}
         if metadata.get("name") != "sureforge" or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", str(metadata.get("name", ""))):
             issues.append(f"{SKILL}: skill-name")
         description = metadata.get("description")
@@ -297,6 +320,9 @@ def validate_package(root=ROOT, private_terms=()):
             issues.append(f"{SKILL}: version-mismatch")
         if custom.get("author") != "Da7-Tech" or not all(isinstance(k, str) and isinstance(v, str) for k, v in custom.items()):
             issues.append(f"{SKILL}: metadata")
+        for name in PUBLIC_VERSION_DOCUMENTS:
+            if not re.search(r"(?<![0-9A-Za-z\-])(?<![0-9A-Za-z]\.)" + re.escape(version) + r"(?![0-9A-Za-z\-])(?!\.[0-9A-Za-z])", texts[name]):
+                issues.append(f"{name}: public-version-missing:{version}")
         if len(texts[SKILL].splitlines()) >= 500 or len(texts[SKILL].split()) > 2500:
             issues.append(f"{SKILL}: entry-point-too-long")
         for name in files:

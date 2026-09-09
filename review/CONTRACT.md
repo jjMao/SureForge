@@ -1,6 +1,6 @@
 # SureForge review contract
 
-Contract version: 1.3. Released version: 1.0.0 (the third review candidate, 0.1.0-alpha.3, with only the version identifiers changed).
+Contract version: 1.4. Candidate version: 1.0.0. The skill text under `skills/sureforge/` is the third review candidate (0.1.0-alpha.3) with two changes: the version identifier and the installer-verification paragraph of the platform notes. The root documentation, package checks, tests, and this contract were revised for publication and reviewed again in round four.
 
 ## Purpose and authority
 
@@ -8,11 +8,11 @@ Build an English, instruction-only Agent Skill named **SureForge** (`sureforge`)
 
 Versions 1.0 to 1.2 of this contract authorized local authoring, repairs after each external review round, neutral review bundles, and bounded model pilots (a GLM 5.3 session that was superseded, a single-arm GLM-5.2 adherence run, and a two-arm Grok 4.6 comparison). Only synthetic task material has been used. Personal names, contact details, identifying local paths, credentials, and session transcripts stay out of the distributable.
 
-The cloud and local alpha.1 reviews together form round one; the alpha.2 review is round two; the alpha.3 review is round three and found no new issues. The reviewer's disclosed design participation remains a limitation. Author tests, model pilots, and changes of model do not constitute independent approval by themselves.
+The cloud and local alpha.1 reviews together form round one; the alpha.2 review is round two; the alpha.3 review is round three and found no new issues in the skill text. Round four consisted of four independent reviews of the 1.0.0 candidate by reviewers given only the source bundle; its confirmed findings and the resulting changes are recorded in the changelog. The reviewer's disclosed design participation in the early rounds remains a limitation. Author tests, model pilots, and changes of model do not constitute independent approval by themselves.
 
 ## Publication decision (2026-09-09)
 
-After the third review, the owner explicitly decided to publish the reviewed candidate as version 1.0.0, the first public release, with narrowed claims and without waiting for the three-arm study. The release steps recorded for that decision: the 21 findings from three review rounds are closed; the repository Da7-Tech/SureForge was created and the commits carry only the public Da7-Tech identity (author and committer checked on the remote); the remote installation command was tested against the published repository; the README states what was and was not measured. The three-arm study with the owner's confirmed baseline instructions, redacted real incidents, and visual-document tasks remain outstanding, and no general performance claim is made.
+After the third review, the owner explicitly decided to publish the reviewed candidate as version 1.0.0, the first public release, with narrowed claims and without waiting for the three-arm study. What this snapshot can record about that decision: the 21 findings from rounds one to three are closed; the round-four findings are fixed in this snapshot; the README states what was and was not measured; the distributable carries only the public Da7-Tech identity. Steps that can only happen once the tag exists (checking author and committer identity on the remote, and installing from the public repository with the pinned Skills CLI) are performed at release time and recorded in the GitHub release notes, not claimed here. The three-arm study with the owner's confirmed baseline instructions, redacted real incidents, and visual-document tasks remain outstanding, and no general performance claim is made.
 
 Public identity: `Da7-Tech`. License: MIT. No personal names, personal contact details, identifying local paths, credentials, or raw conversation logs belong in the distributable. No Git commit identity is assumed or fabricated.
 
@@ -89,4 +89,4 @@ Local author checks use three different methods: requirement and consistency ins
 
 ## Release gate
 
-Before any release: resolve material findings, run the authorized behavioral study or obtain an explicit owner decision to publish an unbenchmarked experimental candidate with narrowed claims, recheck affected evidence, audit the actual Git metadata, test the intended remote install after authorization, and obtain explicit publication approval. Do not silently relax a release criterion or claim general superiority from a small synthetic pilot. For 1.0.0 these steps were taken under the publication decision above; the behavioral-study path was not taken, so the release makes no efficacy claim. Any later release repeats this gate on its own snapshot.
+Before any release: resolve material findings, run the authorized behavioral study or obtain an explicit owner decision to publish an unbenchmarked experimental candidate with narrowed claims, recheck affected evidence, audit the actual Git metadata, test the intended remote install after authorization, and obtain explicit publication approval. Do not silently relax a release criterion or claim general superiority from a small synthetic pilot. For 1.0.0 the owner-decision path was taken, not the behavioral-study path, so the release makes no efficacy claim; the remote-side steps are recorded in the release notes as described in the publication decision above. Any later release repeats this gate on its own snapshot.

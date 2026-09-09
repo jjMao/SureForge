@@ -182,7 +182,10 @@ class GateTests(unittest.TestCase):
 
     def test_round_limit_with_and_without_repairs(self):
         for number, expected in ((1, "REPAIR"), (2, "REPAIR"), (3, "BLOCKED")):
-            self.assertEqual(decide(valid_gate(round_number=number, satisfied=frozenset())).state, expected)
+            decision = decide(valid_gate(round_number=number, satisfied=frozenset()))
+            self.assertEqual(decision.state, expected)
+            self.assertIn("acceptance-gap", decision.reasons)
+            self.assertEqual("rounds-exhausted" in decision.reasons, number == 3, decision.reasons)
         self.assertEqual(decide(valid_gate(round_number=3)).state, "READY")
         self.assertEqual(decide(valid_gate(round_number=4)).state, "BLOCKED")
 
