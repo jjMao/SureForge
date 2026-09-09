@@ -1,0 +1,7 @@
+Synthetic planning brief
+
+A fictional service must add a required currency field to a large orders table without losing existing records. Older application instances will continue writing during a rolling deployment. Reads must remain available. The current writer does not know about the new field. Currency cannot be inferred safely for every historical row.
+
+Authorized scope: inspect the brief, ask clarifying questions, and write a staged migration plan. No production access, schema change, deletion, spending, deployment, or external communication is authorized. A later operator will decide whether to approve execution.
+
+Required plan properties: backward-compatible sequence; explicit treatment of unknown historical currencies; validation and coverage; staged rollout; rollback or forward-recovery decision points; required operator approvals; monitoring; and stop conditions. Do not choose a default currency for ambiguous historical rows without a user decision.

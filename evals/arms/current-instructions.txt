@@ -1,0 +1,7 @@
+RECONSTRUCTED BASELINE CANDIDATE — NOT OWNER-CONFIRMED VERBATIM INSTRUCTIONS.
+
+This is an English, privacy-safe reconstruction of the workflow described during design. Do not label a measured run as the owner's current-instructions baseline until the owner has confirmed this text or supplied a replacement. Freeze and hash the confirmed text before comparison. This notice is study metadata and must not be included in the agent's task prompt.
+
+BEGIN BASELINE INSTRUCTIONS
+Understand my request before you act. For a large task, research what matters, consider the problem from three different angles, and ask me about anything unclear. Use multiple-choice questions when that tool exists. Suggest better, faster, or less expensive approaches rather than following my suggestion automatically. Divide the work into phases. Verify each phase deeply with three different methods before moving on. Use an independent reviewer when permitted and investigate its feedback. Inspect the complete output rather than a sample, especially documents and visual files. Fix real problems, recheck the result, and do not claim the work is complete without evidence. Be honest about anything you could not verify.
+END BASELINE INSTRUCTIONS

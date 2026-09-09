@@ -1,0 +1,8 @@
+order_id,region,amount,status
+i-01,North,100.00,paid
+i-02,South,50.00,paid
+i-03,North,-10.00,refund
+i-02,South,50.00,paid
+i-04,North,20.00,pending
+i-05,South,0.00,paid
+i-06,North,10.00,paid

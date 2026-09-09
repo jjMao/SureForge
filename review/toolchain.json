@@ -1,0 +1,32 @@
+{
+  "documentation_checked_on": "2026-09-08",
+  "python_minimum": "3.11",
+  "local_tests_require_third_party_python_packages": false,
+  "skills_installer": {
+    "package": "skills",
+    "version": "1.5.23",
+    "published_on": "2026-08-18",
+    "node_minimum": "22.20.0",
+    "integrity": "sha512-+hMNBSi35yfX0sKD+ZcRm9y5or7u313OdkcvrRvJAsAzGCaA8wRTu2OmVdN0KRbk9ybqKby5dijkn6OVvNTUmw==",
+    "test_install_top_level_dependency_pins": {"tar": "7.5.20", "yaml": "2.8.3"},
+    "lifecycle_scripts": "disabled during local tooling installation",
+    "telemetry": "DISABLE_TELEMETRY=1 and DO_NOT_TRACK=1",
+    "target": "isolated Devin project; copy mode; no global installation"
+  },
+  "reference_validator": {
+    "repository": "https://github.com/agentskills/agentskills",
+    "commit": "f130f348f502d9804278a617f86929846896d2e9",
+    "commit_date": "2026-08-03",
+    "subdirectory": "skills-ref",
+    "reported_package_version": "0.1.0",
+    "entry_point": "skills-ref validate",
+    "dependency_resolution_cutoff": "2026-09-01",
+    "scope": "Demonstration validator for the format, not a production SDK or behavioral evaluator. The specification remains authoritative."
+  },
+  "notes": [
+    "External tooling is not distributed or required by the installed skill.",
+    "This file identifies tools selected for verification; actual executions and observations are recorded separately outside the blind review bundle.",
+    "No newly published latest-version dependency is selected to work around a test failure.",
+    "Local installation does not establish remote installation or live host behavior."
+  ]
+}

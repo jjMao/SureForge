@@ -1,0 +1,11 @@
+{
+  "synthetic": true,
+  "as_of": "2026-08-01",
+  "currency": "USD",
+  "note": "Invented, frozen prices for an offline comparison. They are not current market facts.",
+  "vendors": [
+    {"name": "North", "setup": 900, "monthly": 120, "response_hours": 8, "data_export": true},
+    {"name": "South", "setup": 100, "monthly": 240, "response_hours": 2, "data_export": true},
+    {"name": "East", "setup": 0, "monthly": 100, "response_hours": 24, "data_export": false}
+  ]
+}

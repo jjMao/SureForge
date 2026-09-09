@@ -1,0 +1,26 @@
+{
+  "kind": "activation-labels-not-observations",
+  "skill_name": "sureforge",
+  "cases": [
+    {"id": "A01", "prompt": "Research the available approaches, clarify the trade-offs with me, then plan and implement our multi-module reporting feature.", "activate": true, "tier": "standard", "reason": "Substantial research-to-delivery workflow."},
+    {"id": "A02", "prompt": "Use SureForge to correct this typo: teh report.", "activate": true, "tier": "light", "reason": "Explicit invocation activates the skill but does not justify full ceremony."},
+    {"id": "A03", "prompt": "Use SureForge in full mode to audit this one-paragraph policy before I approve it.", "activate": true, "tier": "full", "reason": "Explicit full mode overrides the light default, subject to available checks and permissions."},
+    {"id": "A04", "prompt": "Prepare a migration plan for a production service, including permissions, rollback, verification, and review before execution.", "activate": true, "tier": "full", "reason": "A production migration plan warrants high assurance because an incorrect plan can later cause consequential changes. Planning-only authorization still forbids execution."},
+    {"id": "A05", "prompt": "Review every page in this 80-page PDF, fix the layout issues, and verify the final file before delivery.", "activate": true, "tier": "full", "reason": "Explicit extensive visual assurance and full coverage."},
+    {"id": "A06", "prompt": "Compare three vendors using current evidence and our budget, ask about missing requirements, and write a decision study.", "activate": true, "tier": "standard", "reason": "Decision research with material ambiguity and trade-offs."},
+    {"id": "A07", "prompt": "Build this feature across the API, database, and client. Check edge cases, use an independent review if authorized, and show what was tested.", "activate": true, "tier": "standard", "reason": "Multi-file deliverable with explicit verification and review."},
+    {"id": "A08", "prompt": "Produce an EPUB and check every content section in the two readers and font sizes we agree on.", "activate": true, "tier": "full", "reason": "Extensive complete content/rendering assurance."},
+    {"id": "A09", "prompt": "Resume the interrupted standard-tier delivery audit. The bounded, reversible scope has not changed, but the output changed after review; establish what evidence still applies before continuing.", "activate": true, "tier": "standard", "reason": "The prompt explicitly preserves the previous standard tier and bounded scope; evidence applicability still needs checking."},
+    {"id": "A10", "prompt": "Develop a full implementation plan from this vague product brief, research alternatives, and resolve important unknowns before coding.", "activate": true, "tier": "standard", "reason": "Research-first clarification and planning; do not code without authority."},
+    {"id": "A11", "prompt": "What does HTTP 404 mean?", "activate": false, "tier": null, "reason": "Simple explanation."},
+    {"id": "A12", "prompt": "Fix the spelling of teh in this sentence, nothing else.", "activate": false, "tier": null, "reason": "Trivial edit without explicit skill invocation."},
+    {"id": "A13", "prompt": "What is 17 plus 25?", "activate": false, "tier": null, "reason": "Simple calculation."},
+    {"id": "A14", "prompt": "Translate Good morning into Spanish.", "activate": false, "tier": null, "reason": "Small self-contained language task."},
+    {"id": "A15", "prompt": "Show me the command to display the installed Python version.", "activate": false, "tier": null, "reason": "Single command lookup."},
+    {"id": "A16", "prompt": "Give me three names for a fictional cat.", "activate": false, "tier": null, "reason": "Casual ideation is not a quality-control workflow."},
+    {"id": "A17", "prompt": "Check whether this JSON is valid: {\"ready\": true}.", "activate": false, "tier": null, "reason": "The word check alone must not trigger the skill."},
+    {"id": "A18", "prompt": "What is the difference between a plan and a checklist?", "activate": false, "tier": null, "reason": "Workflow vocabulary in an informational question is not a workflow request."},
+    {"id": "A19", "prompt": "Summarize this two-sentence note in one sentence: The office opens at nine. It closes at five.", "activate": false, "tier": null, "reason": "Bounded trivial transformation."},
+    {"id": "A20", "prompt": "Is SureForge the name of this skill? Just answer yes or no.", "activate": false, "tier": null, "reason": "Mentioning the name is not an instruction to apply the skill."}
+  ]
+}

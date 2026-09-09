@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Synthetic operations handbook fixture</title>
+<style>
+@page { size: A4; margin: 16mm; }
+body { margin: 0; color: #222; background: #fff; font: 16px/1.5 Georgia, serif; }
+.page { box-sizing: border-box; width: 720px; min-height: 900px; padding: 48px; margin: 0 auto; break-after: page; }
+h1 { font-size: 34px; line-height: 1.2; }
+h2 { font-size: 25px; }
+nav a { display: block; }
+.table-frame { max-width: 300px; overflow: hidden; }
+table { width: 560px; border-collapse: collapse; }
+th, td { padding: 8px; border: 1px solid #777; text-align: left; }
+@media print { .page { width: auto; min-height: 0; padding: 0; } }
+</style>
+</head>
+<body>
+<section class="page" id="overview" data-unit="1">
+<h1>Operations handbook</h1>
+<p>This is an invented five-section evaluation fixture, not operational advice for a real service.</p>
+<nav aria-label="Contents">
+<a href="#scope">1. Scope</a>
+<a href="#checks">2. Checks</a>
+<a href="#recovery-missing">3. Recovery</a>
+<a href="#handoff">4. Handoff</a>
+</nav>
+</section>
+<section class="page" id="scope" data-unit="2">
+<h2>Scope</h2>
+<p>Inspect the approved candidate only. Local review does not authorize deployment or publication.</p>
+<p>All required sections must remain present after a repair.</p>
+</section>
+<section class="page" id="checks" data-unit="3">
+<h2>Checks</h2>
+<p>The right-hand evidence column is part of the required content.</p>
+<div class="table-frame">
+<table>
+<thead><tr><th>Check</th><th>Owner</th><th>Evidence required before handoff</th></tr></thead>
+<tbody>
+<tr><td>Content</td><td>Operator</td><td>Every section checked against the approved scope.</td></tr>
+<tr><td>Rendering</td><td>Reviewer</td><td>Screen and print states inspected on the final snapshot.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="page" id="recovery" data-unit="4">
+<h2>Recovery</h2>
+<p>Pause when a required condition is not satisfied. Do not perform a destructive recovery without explicit authorization.</p>
+</section>
+<section class="page" id="handoff" data-unit="5">
+<h2>Handoff</h2>
+<p>Include the snapshot, coverage, results, and remaining limitations. A review draft is not an accepted release.</p>
+</section>
+</body>
+</html>
