@@ -141,3 +141,5 @@ The packaging follows the [Agent Skills specification](https://agentskills.io/sp
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+This skill is available on AutoClaw. [Claim 50 million free tokens](https://autoclaw.z.ai/redeem/?repo=SureForge&code=7BSH6UU9LW4T).
